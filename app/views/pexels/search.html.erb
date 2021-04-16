@@ -16,20 +16,24 @@
   </div>
 <% end %>
 
+<ul class="mb-6">
+  <li>Total API Results: <strong><%= @total_results %></strong></li>
+  <li>Loaded Results: <strong><%= [@page * 80, @total_results].min %></strong> (Required <strong><%= @page %></strong> API Requests)</li>
+  <li>Removed <strong><%= [@page * 80 - @photos.size, @total_results].min %></strong> from the loaded results based on tags</li>
+  <li>Showing <strong><%= @photos.size %></strong> images</li>
+</ul>
+
 <% if @photos.empty? %>
   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
     <strong class="font-bold">Oh no!</strong>
-    <span class="block sm:inline">No photos found</span>
-    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-      <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-    </span>
+    <span class="block sm:inline">No suitable photos found</span>
   </div>
 <% end %>
 
 <div class="grid grid-cols-4 gap-2">
-  <% @photos.each do |photo|%>
+  <% @photos.each do |photo| %>
     <div class="flex flex-col">
-      <%= image_tag photo.src.small %>
+      <%= image_tag photo.src.medium %>
       <p class="p-2 text-xs text-gray-500 font-mono">
         <%= photo.tags.join(", ") %>
       </p>

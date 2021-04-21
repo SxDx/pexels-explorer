@@ -5,11 +5,11 @@
       <%= text_field_tag :query, @query, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" %>
     </label>
     <label class="block w-full mr-2">
-      <span class="text-gray-700">Filter Tags</span>
+      <span class="text-gray-700"> Bad Tags</span>
       <%= text_field_tag :filter_tags, @filter_tags.join(","), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" %>
     </label>
     <label class="block w-full mr-2">
-      <span class="text-gray-700">Require Tags</span>
+      <span class="text-gray-700">Good Tags</span>
       <%= text_field_tag :boost_tags, @boost_tags.join(","), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" %>
     </label>
     <%= submit_tag "Search", class: "self-end bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-1" %>
@@ -18,9 +18,6 @@
 
 <ul class="mb-6">
   <li>Total API Results: <strong><%= @total_results %></strong></li>
-  <li>Loaded Results: <strong><%= [@page * 80, @total_results].min %></strong> (Required <strong><%= @page %></strong> API Requests)</li>
-  <li>Removed <strong><%= [@page * 80 - @photos.size, @total_results].min %></strong> from the loaded results based on tags</li>
-  <li>Showing <strong><%= @photos.size %></strong> images</li>
 </ul>
 
 <% if @photos.empty? %>
@@ -34,6 +31,7 @@
   <% @photos.each do |photo| %>
     <div class="flex flex-col">
       <%= image_tag photo.src.medium %>
+      <p class="p-2 text-xs text-gray-500 font-mono">Result rating: <%= photo.rating %></p>
       <p class="p-2 text-xs text-gray-500 font-mono">
         <%= photo.tags.join(", ") %>
       </p>

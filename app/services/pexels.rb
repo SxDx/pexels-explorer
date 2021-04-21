@@ -46,19 +46,26 @@ class Pexels
     photos = data.photos
     total_results = data.total_results
 
+    photos = photos.map do |photo|
+      photo.rating = 0
+      photo
+    end
+
     if filter_tags.any? && photos&.any?
       photos = photos.select do |photo|
         tags = photo.tags.map { |tag| tag.split(" ") }.flatten
-        (tags & filter_tags).empty?
+        photo.rating -= (tags & filter_tags).size
       end
     end
 
     if boost_tags.any? && photos&.any?
       photos = photos.select do |photo|
         tags = photo.tags.map { |tag| tag.split(" ") }.flatten
-        (tags & boost_tags).any?
+        photo.rating += (tags & boost_tags).size
       end
     end
+
+    photos = photos.sort_by { |photo| photo.rating * -1 }
 
     [photos, total_results]
   end

@@ -31,7 +31,7 @@
   <% @photos.each do |photo| %>
     <div class="flex flex-col">
       <%= image_tag photo.src.medium %>
-      <p class="p-2 text-xs text-gray-500 font-mono">Result rating: <%= photo.rating</p> %>
+      <p class="p-2 text-xs text-gray-500 font-mono">Result rating: <%= photo.rating %></p>
       <p class="p-2 text-xs text-gray-500 font-mono">
         <%= photo.tags.join(", ") %>
       </p>

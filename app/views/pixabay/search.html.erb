@@ -1,17 +1,15 @@
-<%= form_with url: pexels_search_path, method: :get, local: true, class: "my-6" do %>
+<%= form_with url: pixabay_search_path, method: :get, local: true, class: "my-6" do %>
   <div class="flex items-center">
     <label class="block w-full mr-2">
       <span class="text-gray-700">Query</span>
       <%= text_field_tag :query, @query, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" %>
     </label>
+    <!--
     <label class="block w-full mr-2">
       <span class="text-gray-700"> Bad Tags</span>
       <%= text_field_tag :filter_tags, @filter_tags.join(","), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" %>
     </label>
-    <label class="block w-full mr-2">
-      <span class="text-gray-700">Good Tags</span>
-      <%= text_field_tag :boost_tags, @boost_tags.join(","), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-300 focus:ring focus:ring-green-200 focus:ring-opacity-50" %>
-    </label>
+    -->
     <%= submit_tag "Search", class: "self-end bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded cursor-pointer ml-1" %>
   </div>
 <% end %>
@@ -30,10 +28,9 @@
 <div class="grid grid-cols-4 gap-2">
   <% @photos.each do |photo| %>
     <div class="flex flex-col">
-      <%= image_tag photo.src.medium %>
-      <p class="p-2 text-xs text-gray-500 font-mono">Result rating: <%= photo.rating</p> %>
+      <%= image_tag photo.webformatURL %>
       <p class="p-2 text-xs text-gray-500 font-mono">
-        <%= photo.tags.join(", ") %>
+        <%= photo.tags %>
       </p>
     </div>
   <% end %>
